@@ -1,0 +1,688 @@
+\documentclass{article}
+
+% if you need to pass options to natbib, use, e.g.:
+% \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading nips_2016
+%
+% to avoid loading the natbib package, add option nonatbib:
+% \usepackage[nonatbib]{nips_2016}
+
+\usepackage[final]{nips_2016}
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+% \usepackage[final]{nips_2016}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{tikz}
+\usetikzlibrary{bayesnet}
+\usetikzlibrary{chains,positioning}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{latexsym}
+\usepackage{amsmath,epsfig,epsf,psfrag,centernot}
+\usepackage{amssymb}
+\usepackage{amssymb, latexsym}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath} 
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage[mathscr]{eucal}
+\usepackage{enumerate}
+\usepackage{lineno}
+\usepackage{pdflscape}
+\usepackage{float}
+\restylefloat{table}
+\usepackage{graphicx}
+\usepackage{caption,booktabs,array}
+\usepackage{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{multicol}
+\usepackage{multirow}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\bi}{\begin{itemize}}
+	\newcommand{\ei}{\end{itemize}}
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\bey}{\begin{eqnarray}}
+\newcommand{\eey}{\end{eqnarray}}
+\newcommand{\beyn}{\begin{eqnarray*}}
+	\newcommand{\eeyn}{\end{eqnarray*}}
+\newcommand{\ba}{\begin{array}}
+	\newcommand{\ea}{\end{array}}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Sum}{\displaystyle\sum}
+\newcommand{\Prod}{\displaystyle\prod}
+\newcommand{\bigCI}{\mathrel{\text{\scalebox{1.07}{$\perp\mkern-10mu\perp$}}}}
+\newcommand{\nbigCI}{\centernot{\mathrel{\text{\scalebox{1.07}{$\perp\mkern-10mu\perp$}}}}}
+%
+% Useful symbols
+%
+\newcommand{\ihat}{\hat{\imath}}
+\newcommand{\jhat}{\hat{\jmath}}
+\newcommand{\Nat}{\bf N}                               % natural numbers
+\newcommand{\Int}{\mathbf{Z}}                          % integers
+\newcommand{\Bool}{\it Bool}                           % booleans
+\newcommand{\true}{\tt t}
+\newcommand{\false}{\tt f}
+\newcommand{\I}{\cal I}                                % interpretations
+\newcommand{\M}{\cal M}                                % meaning functions
+\newcommand{\A}{\cal A}                                % arithmetic interpretation
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\B}{\cal B}                                % binary word interpretation
+\newcommand{\TIME}{\mathop{\rm TIME}\nolimits}
+\newcommand{\NTIME}{\mathop{\rm NTIME}\nolimits}
+\newcommand{\SPACE}{\mathop{\rm SPACE}\nolimits}
+\newcommand{\NSPACE}{\mathop{\rm NSPACE}\nolimits}
+\newcommand{\union}{\cup}
+\newcommand{\intersect}{\cap}
+%\newcommand{\implies}{\Rightarrow}
+
+%
+% Probability symbols
+%
+\newcommand{\Pm}{\mathbb{P}}
+\newcommand{\F}{\mathcal{F}}
+
+% 
+% Useful functions
+%
+\newcommand{\abs}[1]{\mathify{\left| #1 \right|}}
+\renewcommand{\Pr}[1]{\mathify{\mbox{Pr}\left(#1\right)}}
+%\newcommand{\E}[1]{\mathify{\mbox{E}\left[#1\right]}}
+\newcommand{\Exp}[1]{\mathify{\mbox{Exp}\left[#1\right]}}
+\newcommand{\Tr}[1]{\mathify{\mbox{Tr}\left(#1\right)}}
+\newcommand{\set}[1]{\mathify{\left\{ #1 \right\}}}
+\newcommand{\cset}[2]{\set{#1\ :\ #2}}  % a conditional notation to define sets
+\newcommand{\lset}[2]{\set{#1,\ldots,#2}} % set {from,...,to}
+\newcommand{\suchthat}{\vert}
+\newcommand{\st}{\suchthat}
+\newcommand{\ind}{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+%
+% For pseudo-code
+%
+\newcommand{\FOR}{{\bf for}}
+\newcommand{\TO}{{\bf to}}
+\newcommand{\DO}{{\bf do}}
+\newcommand{\WHILE}{{\bf while}}
+\newcommand{\AND}{{\bf and}}
+\newcommand{\IF}{{\bf if}}
+\newcommand{\THEN}{{\bf then}}
+\newcommand{\ELSE}{{\bf else}}
+
+
+
+%
+% Useful environments-- theorem-like
+%
+%\newtheorem{observation}[theorem]{Observation}
+%\newtheorem{proposition}[theorem]{Proposition}
+%\newtheorem{claim}[theorem]{Claim}
+%\newtheorem{assumption}[theorem]{Assumption}
+
+%
+% Useful environments for proofs
+%
+%\newenvironment{proof}{\noindent{\bf Proof:}\hspace*{1em}}{\qed\bigskip}
+\newenvironment{proof-sketch}{\noindent{\bf Sketch of Proof:}\hspace*{1em}}{\qed\bigskip}
+\newenvironment{proof-idea}{\noindent{\bf Proof Idea:} \hspace*{1em}}{\qed\bigskip}
+\newenvironment{proof-of-lemma}[1]{\noindent{\bf Proof of Lemma #1:}\hspace*{1em}}{\qed\bigskip}
+\newenvironment{proof-attempt}{\noindent{\bf Proof Attempt:}\hspace*{1em}}{\qed\bigskip}
+\newenvironment{proofof}[1]{\noindent{\bf Proof}
+	of #1:\hspace*{1em}}{\qed\bigskip}
+\newenvironment{remark}{\noindent{\bf Remark:}\hspace*{1em}}{\bigskip}
+
+
+\newcommand{\eqdef}{\stackrel{\rm def}{=}}       % ``equals by definition''
+\newcommand{\hint}{{\em Hint}:\ }              % for in-line hints
+%\newcommand{\note}{{\em Note}:\ }              % for in-line notes
+%\newcommand{\remark}{{\em Remark}\/:\ }              % for in-line remarks  
+\newcommand{\sem}[1]{[\![\,#1\,]\!]}
+
+\title{Particle EM algorithm in Latent Dirichlet Allocation model}
+
+% The \author macro works with any number of authors. There are two
+% commands used to separate the names and addresses of multiple
+% authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to
+% break the lines. Using \AND forces a line break at that point. So,
+% if LaTeX puts 3 of 4 authors names on the first line, and the last
+% on the second line, try using \AND instead of \And before the third
+% author name.
+
+\author{
+Yubing Yao\\
+Department of Biostatistics and Epidemiology,\\
+University of Massachussetts, Amherst\\
+\texttt{yyao@umass.edu}
+}
+
+\begin{document}
+% \nipsfinalcopy is no longer used
+
+\maketitle
+
+
+\begin{abstract}
+ We develop a particle EM algorithm under the framework of Latent Dirichlet Allocation (LDA) model for text documents, and explore the global mode of evidence lower bound (ELBO) in Bayesian variational inference with penalized entropy for topic probabilities through generating multiple repulsive  particles to explore the search space to identify the comprehensive set of modes. 
+\end{abstract}
+
+\section{Introduction}
+The Particle EM Algorithm was first introduced by Veronika Rockova in Bayesian variable selection to find the best multiple point approximation of posterior marginal distribution in 2016. The particle EM algorithm is a population-based optimization method, and aims to overcome the vulnerability of local entrapment of the traditional EM algorithm when dealing with the multi-modal posterior/likelihood. The particle EM algorithm explores the whole search space by multiple repulsive particles and tries to capture the multiple modes of posterior distribution. \\
+\\
+The difference between EM  and Particle EM algorithms can be exemplified in a simple illustrative the example below, assume we have two predictors-$\{X_1,X_2\}$ with the corresponding parameters-$\{\beta_1,\beta_2\}$ with high correlation-$0.9$, then assume posterior marginal distribution-$\pi(\bs{\beta}|\bs{Y})$ with four modes with mode 3 global mode-$\{\beta_1=1,\beta_2=0\}$, we can observe in EM algorithm with multiple particles they tend to converge to one strong local mode 4 while in Particle EM algorithm we force multiple particles to separate by penalizing the entropy term and thus are possible to detect global mode-mode 3.\\
+	\begin{figure}[!hbt]
+		\includegraphics[width = 12cm,height=5.5cm]{pemex1.png}
+		\centering
+	\end{figure}
+\subsection{Latent Dirichlet Allocation(LDA) model framework}
+The Latent Dirichlet Allocation(LDA) model is a probabilistic model for collections of discrete data such as text corpora introduced by (D. Blei et al. 2003). Following the same notation as D. Blei et al. 2003:\\
+\bi
+\item Denote a collection of $M$ documents-$\mathcal{D}=\{\bs{w}_1,\bs{w}_2,\ldots,\bs{w}_M\}$.
+\item A document has a sequence of $N$ words denoting $\bs{w}=\{w_1,w_2,\ldots,w_N\}$.
+\item A word defined as an item from a vocabulary indexed by $\{1,2,\ldots,V\}$. Represent words using unit-basis vectors that have a single component equal to
+one and all other components equal to zero. Thus, using superscripts to denote components, the $v$th word in the vocabulary is represented by a $V$-vector $w$ such that $w^v = 1$ and $w^u=1$ for
+$u\neq v$.
+\ei
+Assume the documents are represented as random mixture over latent topics in LDA model, without slight modification, firstly we fix the number of latent topics-$N$ is fixed, then the following generative process for each document-$\bs{w}$ in a corpus-$\mathcal{D}$:\\
+\bi
+\item[1.] Choose $\theta\sim Dir(\alpha)$
+\item[2.] For each of the $N$ words-$w_n$:
+\subitem(a) Choose a topic $z_n\sim Multinomial(\theta)$
+\subitem(b) Choose a word $w_n$ from $p(w_n|z_n,\beta)$
+\ei
+Denote $k\times V$ matrix $\beta$ where $\beta_{ij}=p(w^j=1|z^i=1),j=1,\ldots,V,i=1,2,\ldots,k$, and $w_{n_d}^j=1$ of $j$th component of the word $w_{n_d},j=1,\ldots,V,n_d=1,\ldots,N_d,d=1,2,\ldots,D$.
+\\
+Given the parameter-$\alpha$ and $\beta$, for a corpus-$\mathcal{D}$ with  $d=1,\ldots,D$ documents,
+then joint distribution of a topic mixture-$\theta_d$, a set of $N_d$ topics-$\bs{z}_d$ and a set of $N_d$ words-$\bs{w}_d$ is given by:
+\[
+p(\mathcal{D}|\alpha,\beta)=\Prod_{d=1}^{D}\int p(\theta_d,\bs{z}_d,\bs{w}_d|\alpha,\beta)d\theta_d=\Prod_{d=1}^{D}\int p(\theta_d|\alpha)\Prod_{n_d=1}^{N}p(\bs{z}_{dn_d}|\theta_d)p(\bs{w}_{dn_d}|\bs{z}_{dn_d},\beta)d\theta_d
+\]
+where $p(\theta_d|\alpha)$ assuming $K$ dimensional vector of $\theta_d$:\\
+\[
+p(\theta_d|\alpha)=\frac{\Gamma(\sum_{i=1}^{k}\alpha_i)}{\prod_{i=1}^{k}\Gamma(\alpha_i)}\theta_1^{\alpha_1-1}\cdots\theta_k^{\alpha_k-1}
+\]
+And denote $\phi_{n_di}=I(z_{w_{n_d}}^i=1)$, that is, $n_d$th word is generated from latent topic-$i$, then $p(\bs{w}_{dn}|\bs{z}_{dn},\beta)$ can be represented as:\\
+\[
+p(\bs{w}_{dn}|\bs{z}_{dn},\beta)=\Prod_{i=1}^{k}\Prod_{j=1}^{V}(\theta_{i}\beta_{ij})^{w_{n_d}^{j}}=\Prod_{i=1}^{k}\Prod_{j=1}^{V}(\beta_{ij})^{w_{n_d}^{j}\phi_{n_di}}
+\]
+\subsection{Variational Inference in Latent Dirichlet Allocation  (LDA) model}
+Two free variational parameters-$\bs{\gamma},\bs{\phi}$ was introduced in D. Blei et al. 2003 to break the coupling between  model parameters-$\theta$ and $\beta$ in LDA such that:\\
+\[
+q(\theta_d,\bs{z}_d|\gamma,\phi)=q(\theta|\gamma)\Prod_{n_d=1}^{N_d}q(\bs{z}_{n_d}|\phi_{n_d})
+\]
+Right-hand side of the inequality\ref{elbo1} defined in Appendix is a lower bound on the log likelihood for an arbitrary variational distribution-$q(\theta,\bs{z}|\gamma,\phi)$.\\
+\\
+This lower bound can be denoted as $\mathcal{L}(\gamma,\phi,\alpha,\beta)$,\\
+\be\label{elbo2}
+\ba{rcl}
+\mathcal{L}(\gamma,\phi,\alpha,\beta)=\Sum_{d=1}^{D}\left(\E_{q}[\log p(\theta_d|\alpha)]+\E_{q}[\log p(\bs{z}_d|\theta_d)]+\E_{q}[\log p(\bs{w}_d|\bs{z}_d,\beta)]-\E_q[\log q(\theta_d)]\right)
+\ea
+\ee
+\section{Particle EM algorithm in LDA model}
+\subsection{Particle approximation and Evidence Lower Bound}
+Motivated by the particle approximation in Rockova V. 2016, for $d=1,2,\ldots,D$, we use a weighted mixture of atoms to approximate $\pi(\bs{z}_{dn}|\mathcal{D}),n=1,2,\ldots,N_d,d=1,2,\ldots,D$, and we denote:\\
+\[
+q_{PEM}(\bs{z}_{dn}|\bs{\Gamma}_{dn},\bs{\omega})=\Sum_{p=1}^{P}\omega_{p}\mathbb{I}\{\bs{z}_{dn}=\bs{z}_{pdn}\}
+\]
+where $\bs{\Gamma}_{dn}=[\bs{z}_{1dn},\bs{z}_{2dn},\ldots,\bs{z}_{Pdn}]$,corresponding importance weights-$\bs{\omega}=(\omega_{1},\omega_{2},\ldots,\omega_{P})^T$, where $\sum_{p=1}^{P}\omega_{p}=1,\forall d=1,\ldots,D,n=1,2,\ldots,N_d;0\le\omega_{p}\le 1,\forall p=1,2,\ldots,P$.\\
+For $\bs{z}_{pdn},\forall p=1,2,\ldots,P,n=1,2,\ldots,N_d,d=1,2,\ldots,D$, $z_{pdn}$ can only takes one of $1,2,\ldots,k$ values, representing the possible $k$ topics in LDA model. \\
+\\
+And denote $\bs{z}_{pdn}^{i}$ will only can take the $i=1,2,\ldots,k$ values corresponding to $k$ possible topics.\\
+\[
+z_{pdn}^i=\begin{cases}
+1\quad\mbox{if word $z_{pdn}$ is from topic $i$}\\
+0\quad otherwise
+\end{cases}
+\]
+We follow the similar setup for the variational distribution setup for $q(\theta|\gamma)$ in D. Blei et al. 2003.\\
+Thus the new variational distribution of $q_{PEM}(\theta_d,\bs{z}_d|\bs{\gamma}_d,\bs{\Gamma}_d,\bs{\omega})$ is:\\
+\[
+q_{PEM}(\theta,\bs{z}|\bs{\gamma},\bs{\Gamma},\bs{\omega})=\Prod_{d=1}^{D}\left[q(\theta_d|\bs{\gamma}_d)\Prod_{n_d=1}^{N_d}q_{PEM}(\bs{z}_{dn_d}|\bs{\Gamma}_d,\bs{\omega})\right]
+\]
+where $\bs{\gamma}=[\bs{\gamma}_1,\bs{\gamma}_2,\ldots,\bs{\gamma}_D],\bs{\omega}=[\omega_1,\omega_2,\ldots,\omega_P]$.\\
+\\
+Then the evidence lower bound-\ref{elbo2} replacing $q(\theta,\bs{z}|\gamma,\phi)$ with $q_{PEM}(\theta_d,\bs{z}_d|\bs{\gamma}_d,\bs{\Gamma}_d,\bs{\omega})$ can be written as :\\
+\be\label{elbo3}
+\ba{rcl}
+\mathcal{L}_{\lambda}(\bs{\gamma},\bs{\Gamma},\bs{\omega};\bs{\theta},\alpha,\beta)&=&\Sum_{d=1}^{D}\left(\E_{q_{PEM}}[\log p(\theta_d|\alpha)]+\E_{q_{PEM}}[\log p(\bs{z}_d|\theta_d)]+\E_{q_{PEM}}[\log p(\bs{w}_d|\bs{z}_d,\beta)]\right.\\
+&&\left.-\E_{q}[\log q(\theta_d|\bs{\gamma}_d)]-\lambda\E_{q_{PEM}}[\log q_{PEM}(\bs{z}_{n_d}|\bs{\Gamma}_d,\bs{\omega}_d)]\right)\\
+\ea
+\ee
+where $\lambda\ge 0$.\\
+When $\lambda=1$, the above is regular ELBO from variational inference. if $\lambda=0$, it is equivalent to parallel EM.
+\subsection{Particle EM-E step with single particle}
+Before entirely introduce the Particle EM algorithm in LDA model, firstly we assume single particle-$P=1$ and fix some document-$\bs{w}_d$.\\
+\\
+Denote $\beta_{iv_d}=p(w_n^{v_d}=1|z_d^i=1)$ for the appropriate $v_d$, the value of estimated $\hat{\phi}_{dni}$ maximizing the ELBO is:\\
+\[
+\hat{\phi}_{dni}=\frac{\beta_{iv_d}^{1/\lambda}\exp((\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))/\lambda)}{\sum_{i=1}^{k}\beta_{iv_d}^{1/\lambda}\exp((\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))/\lambda)}
+\]
+Next, the value of estimated $\hat{\gamma}_{di}$ maximizing the ELBO is:\\
+\[
+\hat{\gamma}_{di}=\alpha_i+\sum_{n=1}^{N_d}\phi_{dni}
+\]
+\subsection{M step with single particle}
+In M step with single particle-$P=1$, with all the documents-$\bs{w}_d,d=1,\ldots,D$, maximize the  ELBO with respect to model parameters-$\bs{\alpha},\bs{\beta}$.\\
+\\
+Similarly to Blei et al. 2003, then estimated value of model parameter-$\bs{\beta}$ is:\\
+\[
+\hat{\beta}_{ij}=\frac{\sum_{d=1}^{D}\sum_{n=1}^{N_d}\phi_{dni}w_{dn}^j}{\sum_{d=1}^{D}\sum_{n=1}^{N_d}\sum_{j'=1}^{V}\phi_{dni}w_{dn}^{j'}}
+\]
+The estimation of $\alpha_{i},i=1,2,\ldots,k$ by maximizing the ELBO can be solved numerically by Newton-Raphson method.
+\subsection{E step with multiple particles}
+With $P>1$, we need alternatively update the particle location-$[\bs{\phi}_{1dn},\bs{\phi}_{2dn},\ldots,\bs{\phi}_{Pdn}],\forall n=1,2,\ldots,N_d$ and their corresponding importance weights-$(\bs{\omega}_{1},\bs{\omega}_{2},\ldots,\bs{\omega}_{P})^T,\forall d=1,\ldots,D;n=1,2,\ldots,N_d$.\\
+\\
+Apply Newton-Raphson method, for each fixed $n=1,2,\ldots,N_d,d=1,2,\ldots,D$, denote $\bs{\phi}_{dni}=[\phi_{1dni},\phi_{2dni},\ldots,\phi_{Pdni}]^T$, then by iterating the equation below we can find the maximal-$\bs{\phi}_{dn}$:\\
+\[
+\bs{\phi}_{dni(new)}=\bs{\phi}_{dni(old)}-H(\bs{\phi}_{dn(old)})^{-1}g(\bs{\phi}_{dni(old)})
+\]
+where $H(\bs{\phi}_{dn}),g(\bs{\phi}_{dni})$ are the Hessian matrix and gradient respectively at the point-$\bs{\phi}_{dni}$ defined above.\\
+\\
+The value of estimated importance weight-$\hat{\omega}_p,\forall p=1,2,\ldots,P$ is:
+\be\label{omg3}
+\ba{rcl}
+\hat{\omega}_p
+&=&\frac{\sum_{d=1}^{D}\sum_{n=1}^{N_d}\sum_{i=1}^{k}\left(\phi_{pdni}(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))+\phi_{pdni}\log\beta_{iv_d}\right)}{\sum_{p'=1}^{P}\sum_{d=1}^{D}\sum_{n=1}^{N_d}\sum_{i=1}^{k}\left(\phi_{p'dni}(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))+\phi_{p'dni}\log\beta_{iv_d}\right)}
+\ea
+\ee
+The value of estimated $\hat{\gamma}_{di}$ maximizing the ELBO is:\\
+\[
+\hat{\gamma}_{di}=\alpha_i+\sum_{n=1}^{N_d}\sum_{p=1}^{P}\omega_{p}\phi_{pdni}
+\]
+\subsection{M step with multiple particles}
+In M step with multiple particles-$P>1$, with all the documents-$\bs{w}_d,d=1,\ldots,D$, maximize the  ELBO with respect to model parameters-$\bs{\alpha,}\bs{\beta}$.\\
+\\
+Similarly to Blei et al. 2003, then estimated value of model parameter-$\bs{\beta}$ is:\\
+\[
+\hat{\beta}_{ij}=\frac{\sum_{d=1}^{D}\sum_{n=1}^{N_d}\sum_{p=1}^{P}\omega_{p}\phi_{pdni}w_{dn}^j}{\sum_{d=1}^{D}\sum_{n=1}^{N_d}\sum_{j'=1}^{V}\sum_{p=1}^{P}\omega_{p}\phi_{pdni}w_{dn}^{j'}}
+\]
+Similarly to the estimator at M step with single particle, estimation of model parameter-$\bs{\alpha}$ is from Newton-Raphson method for a Hessian with special structure.\\
+\\
+After randomly initialize the values of model parameters- $\bs{\beta}^{(0)},\bs{\alpha}^{(0)}$, we recursively iterate the estimators of variational parameters - $\bs{\phi}_{pnd}, \bs{\omega}, \bs{\gamma}_d$ until convergence at E step and also recursively iterate model parameters $\bs{\beta},\bs{\alpha}$ until convergence at M step.
+\newpage
+\section{Appendix}
+\subsection{Variational Inference in LDA model}
+For any fixed $d$, we can achieve a evidence lower bound using the variational distribution-$q(\theta_d,\bs{z}_d|\gamma,\phi)$ defined above,\\
+\be\label{elbo1}
+\ba{rcl}
+\log p(\bs{w}_d|\alpha,\beta)&=&\log\int\Sum_{
+	\bs{z}_d}p(\theta_d,\bs{z}_d,\bs{w}_d|\alpha,\beta)d\theta_d\\
+&=&\log\int\Sum_{
+	\bs{z}_d}\frac{p(\theta_d,\bs{z}_d,\bs{w}_d|\alpha,\beta)q(\theta_d,\bs{z}_d|\gamma,\phi)}{q(\theta_d,\bs{z}_d|\gamma,\phi)}d\theta_d\\
+&\ge&\int\Sum_{
+	\bs{z}_d}q(\theta_d,\bs{z}_d|\gamma,\phi)\log p(\theta_d,\bs{z}_d,\bs{w}_d|\alpha,\beta)-\int\Sum_{
+	\bs{z}_d}q(\theta_d,\bs{z}_d|\gamma,\phi)\log q(\theta_d,\bs{z}_d|\gamma,\phi)d\theta_d\\
+&&=\E_{q}[p(\theta,\bs{z}_d,\bs{w}_d|\alpha,\beta)]-\E_{q}[q(\theta_d,\bs{z}_d|\gamma,\phi)]\\
+&&=\E_{q}[p(\theta,\bs{z}_d,\bs{w}_d|\alpha,\beta)]+H(\gamma,\phi)\\
+\ea
+\ee
+where the entropy-$H(\gamma,\phi)=-\E_{q}[q(\theta_d,\bs{z}_d|\gamma,\phi)]$.
+\subsection {Parameter estimation in Particle EM on LDA model}
+\subsubsection{Variational parameter estimation at E step of Particle EM with single particle}
+Before entirely introduce the Particle EM algorithm in LDA model, firstly we assume single particle-$P=1$ and fix some document-$\bs{w}_d$, and denote $\phi_{dni}=\E(z_{dn}^{i})=P(z_{dn}^{i}=1),\forall n=1,2,\ldots,N_d,i=1,2,\ldots,k$.\\
+\\
+Under $P=1$ the entropy term becomes:\\
+\be\label{en1}
+\ba{rcl}
+-\E_{q}[\log q(\theta_d|\bs{\gamma}_d)]+H_\lambda(\bs{\Gamma}_d,\bs{\omega}_d)
+&=&-\Psi(\sum_{j=1}^{k}\gamma_j)+\Sum_{i=1}^{k}\log\Gamma(\gamma_i)-\Sum_{i=1}^{k}(\gamma_i-1)(\Psi(\gamma_i)-\Psi(\sum_{j=1}^{k}\gamma_j))\\
+&&+H_\lambda(\bs{\Gamma}_d,\bs{\omega}_d)
+\ea
+\ee
+Then with single particle $P=1$ and fix some $d,\bs{w}_d$  the evidence lower bound-\ref{elbo3} becomes:
+\be\label{elbo5}
+\ba{rcl}
+\mathcal{L}_{d\lambda}(\bs{\gamma}_d,\bs{\Gamma},\bs{\omega};\bs{\theta},\alpha,\beta)
+&=&\log\Gamma(\sum_{j=1}^{k}\alpha_j)+\Sum_{i=1}^{k}(\alpha_i-1)(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))\\
+&&+\Sum_{n=1}^{N_d}\Sum_{i=1}^{k}\phi_{dni}(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))\\
+&&+\Sum_{n=1}^{N_d}\Sum_{i=1}^{k}\Sum_{j=1}^{V}\phi_{dni}w_n^j\log\beta_{ij}\\
+&&-\Psi(\sum_{j=1}^{k}\gamma_{dj})+\Sum_{i=1}^{k}\log\Gamma(\gamma_{di})-\Sum_{i=1}^{k}(\gamma_{di}-1)(\Psi(\gamma_i)-\Psi(\sum_{j=1}^{k}\gamma_{dj}))\\
+&&+H_\lambda(\bs{\Gamma}_d,\bs{\omega}_d)\\
+\ea
+\ee
+Firstly maximize the ELBO-\ref{elbo5} with respect to $\phi_{dni}$ with the constraint-$\sum_{j=1}^{k}\phi_{dnj}=1$.
+Denote $\beta_{iv_d}=p(w_n^{v_d}=1|z_d^i=1)$ for the appropriate $v_d$.
+Then add the Lagrange multiplier to the terms in ELBO-\ref{elbo5} containing $\phi_{ni}$,\\
+\[
+\mathcal{L}_{d[\phi_{dni}]}=\phi_{dni}(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))+\phi_{dni}\log\beta_{iv_d}-\lambda\phi_{dni}\log\phi_{dni}+\lambda_{\phi}(\sum_{j=1}^{k}\phi_{dnj}-1)
+\]
+Take first derivative in terms of $\phi_{dni}$, then:\\
+\[
+\frac{\partial\mathcal{L}_d}{\partial \phi_{dni}}=\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj})+\log\beta_{iv_d}-\lambda-\lambda\log\phi_{dni}+\lambda_{\phi}
+\]
+Set the derivative above equal to zero, then the value of estimated $\hat{\phi}_{dni}$ maximizing the ELBO-\ref{elbo5} is:\\
+\[
+\hat{\phi}_{dni}=\frac{\beta_{iv_d}^{1/\lambda}\exp((\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))/\lambda)}{\sum_{i=1}^{k}\beta_{iv_d}^{1/\lambda}\exp((\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))/\lambda)}
+\]
+Next, we maximize the equation-\ref{elbo5} with respect to $\gamma_{di}$, the terms containing $\gamma_i$ are:\\
+\be\label{elbo6}
+\ba{rcl}
+\mathcal{L}_{d[\gamma_{di}]}&=&(\alpha_i-1)\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj})\Sum_{j=1}^{k}(\alpha_j-1)+\Sum_{n=1}^{N_d}\phi_{dni}(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))\\
+&&-\Psi(\sum_{j=1}^{k}\gamma_j)+\Sum_{i=1}^{k}\log\Gamma(\gamma_{di})-(\gamma_{di}-1)\Psi(\gamma_{di})+\Psi(\sum_{j=1}^{k}\gamma_{dj})\Sum_{j=1}^{k}(\gamma_{dj}-1)
+\ea
+\ee
+Take first derivative in terms of $\gamma_{di}$:
+\[
+\frac{\partial \mathcal{L}_{d[\gamma_{di}]}}{\partial \gamma_{di} }=(\alpha_i+\sum_{n=1}^{N_d}\phi_{dni}-\gamma_{di})\Psi'(\gamma_{di})-\Psi'(\sum_{i=1}^{k}\gamma_{di})\Sum_{j=1}^{k}(\alpha_j+\sum_{n=1}^{N_d}\phi_{dni}-\gamma_{dj})
+\]
+Setting the above first derivative equal to 0 then the value of estimated $\hat{\gamma}_{di}$ maximizing the ELBO-\ref{elbo5} is:\\
+\[
+\hat{\gamma}_{di}=\alpha_i+\sum_{n=1}^{N_d}\phi_{dni}
+\]
+\subsubsection{Model parameter estimation at M step of Particle EM with single particle}
+In M step with single particle-$P=1$, with all the documents-$\bs{w}_d,d=1,\ldots,D$, maximize the  ELBO-\ref{elbo5} with respect to model parameters-$\alpha,\beta$.\\
+\\
+Similarly to Blei et al. 2003, choose the terms related to $\beta$ and add Lagrange multiplier,\\
+\[
+\mathcal{L}_{[\beta]}=\Sum_{d=1}^{D}\Sum_{n=1}^{N_d}\Sum_{i=1}^{k}\Sum_{j=1}^{V}\phi_{dni}w_{dn}^j\log\beta_{ij}+\Sum_{i=1}^{k}\lambda_{\beta i}(\Sum_{j=1}^{V}\beta_{ij}-1)
+\]
+Take the first derivative in terms of $\beta_{ij}$, set it to zero, then:\\
+\[
+\hat{\beta}_{ij}=\frac{\sum_{d=1}^{D}\sum_{n=1}^{N_d}\phi_{dni}w_{dn}^j}{\sum_{d=1}^{D}\sum_{n=1}^{N_d}\sum_{j'=1}^{V}\phi_{dni}w_{dn}^{j'}}
+\]
+And also choose the terms containing $\alpha$:\\
+\[
+\mathcal{L}_{[\alpha]}=\Sum_{d=1}^{D}\left(\log\Gamma(\sum_{j=1}^{k}\alpha_j)+\Sum_{i=1}^{k}(\alpha_i-1)(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))\right)
+\]
+Take the first derivative in terms of $\alpha_{i}$,  then:\\
+\[
+\frac{\partial \mathcal{L}}{\partial \alpha_{i} }=D(\Psi(\sum_{j=1}^{k}\alpha_j)-\Psi(\alpha_i))+\Sum_{d=1}^{D}(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))
+\]
+Set it to zero, then $\forall i\neq j=1,2,\ldots,k$,:\\
+\[
+\frac{\partial \mathcal{L}}{\partial \alpha_{i}\alpha_{j} }=\delta(i,j)D\Psi'(\alpha_i)-\Psi'(\sum_{j=1}^{k}\alpha_j)
+\]
+Apply the Newton-Raphson method for a Hessian with special structure, denote $\bs{\alpha}=[\alpha_{1},\alpha_{2},\ldots,\alpha_{k}]^T$, then by iterating the equation below we can find the maximal-$\bs{\alpha}$:\\
+\[
+\bs{\alpha}_{(new)}=\bs{\alpha}_{(old)}-H_1(\bs{\alpha}_{(old)})^{-1}g_1(\bs{\alpha}_{(old)})
+\]
+where $H_1(\bs{\alpha}),g_1(\bs{\alpha})$ are the Hessian matrix and gradient respectively at the point-$\bs{\alpha}$ defined above.\\
+And the Hessian matrix $H_1(\bs{\alpha})$ with the special form:\\
+\[
+H_1(\bs{\alpha})=diag(\bs{h})-\Psi'(\sum_{j=1}^{k}\alpha_j)\bs{1}\bs{1}^T
+\]
+where $\bs{h}=[D\Psi'(\alpha_1),D\Psi'(\alpha_2),\ldots,D\Psi'(\alpha_k)]^T$\\
+\\
+And inverse of Hessian matrix $H_1(\bs{\alpha})$ can be expressed as:\\
+\[
+H_1(\bs{\alpha})^{-1}=diag(\bs{h})^{-1}+\frac{Ddiag(\bs{h})^{-1}\bs{1}\bs{1}^Tdiag(\bs{h})^{-1}}{D(\Psi'(\sum_{j=1}^{k}\alpha_j))^{-1}-\sum_{j=1}^{k}(\Psi'(\alpha_j))^{-1}}
+\]
+\subsubsection{Variational parameter estimation at E step of Particle EM with multiple particles}
+With $P>1$, we need alternatively collaborative updating the particle location-$[\bs{\phi}_{1dn},\bs{\phi}_{2dn},\ldots,\bs{\phi}_{Pdn}],\forall n=1,2,\ldots,N_d$ and their corresponding importance weights-$(\bs{\omega}_{1},\bs{\omega}_{2},\ldots,\bs{\omega}_{P})^T,\forall d=1,\ldots,D;n=1,2,\ldots,N_d$.\\
+\\
+Denote $\bs{\Gamma}^{(m)}=[\bs{\Gamma}_{1dn}^{(m)},\bs{\Gamma}_{2dn}^{(m)},\ldots,\bs{\Gamma}_{Ddn}^{(m)}],\forall d=1,\ldots,D;n=1,2,\ldots,N_d$, the state of  particle system at the $m$th iteration and denote $\bs{\omega}^{(m)}=(\bs{\omega}_{1dn}^{(m)},\bs{\omega}_{2dn}^{(m)},\ldots,\bs{\omega}_{Ddn}^{(m)})^T$.\\
+\\
+Given $\bs{\omega}^{(m)}$ fix some $d$ then the evidence lower bound-\ref{elbo3} becomes:\\
+\be\label{elbo7}
+\ba{rcl}
+\mathcal{L}_{d\lambda}(\bs{\gamma}_d,\bs{\Gamma},\bs{\omega};\bs{\theta},\alpha,\beta)
+&=&\log\Gamma(\sum_{j=1}^{k}\alpha_j)+\Sum_{i=1}^{k}(\alpha_i-1)(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))\\
+&&+\Sum_{p=1}^{P}\Sum_{n=1}^{N_d}\omega_{p}^{(m)}\Sum_{i=1}^{k}\phi_{pdni}(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))\\
+&&+\Sum_{p=1}^{P}\Sum_{n=1}^{N_d}\omega_{p}^{(m)}\Sum_{i=1}^{k}\Sum_{j=1}^{V}\phi_{pdni}w_n^j\log\beta_{ij}\\
+&&-\Psi(\sum_{j=1}^{k}\gamma_{dj})+\Sum_{i=1}^{k}\log\Gamma(\gamma_{di})-\Sum_{i=1}^{k}(\gamma_{di}-1)(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))\\
+&&-\lambda\Sum_{p=1}^{P}\Sum_{n=1}^{N_d}\omega_{p}\Sum_{i=1}^{k}\phi_{pdni}\log(\sum_{p=1}^{P}\omega_{p}\phi_{pdni})
+\ea
+\ee
+where $\phi_{pdni}=\E(z_{pdn}^{i})=P(z_{pdn}^{i}=1),\forall p=1,2,\ldots,P;d=1,2,\ldots,D,n=1,2,\ldots,N_d,i=1,2,\ldots,k$.\\
+Similar to one particle system,firstly maximize the ELBO-\ref{elbo7} with respect to $\phi_{pdni}$ with the constraint-$\sum_{j=1}^{k}\phi_{pdnj}=1$.
+Denote $\beta_{iv_d}=p(w_n^{v_d}=1|z_{pd}^i=1)$ for the appropriate $v_d$.\\
+Then  add the Lagrange multiplier to the terms in ELBO-\ref{elbo7} containing $\phi_{pdni}$,\\
+\be\label{phi1}
+\ba{rcl}
+\mathcal{L}_{d[\phi_{pdni}]}&=&\omega_{p}\phi_{pdni}(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))+\omega_{p}\phi_{pdni}\log\beta_{iv_d}\\&&-\lambda\Sum_{p'=1}^{P}\omega_{p'}\phi_{p'dni}\log(\sum_{p'=1}^{P}\omega_{p'}\phi_{p'dni})
++\lambda_{\phi_p}(\sum_{j=1}^{k}\phi_{pdnj}-1)
+\ea
+\ee
+Take first derivative in terms of $\phi_{pdni}$, then:\\
+\[
+\frac{\partial\mathcal{L}_d}{\partial \phi_{pdni}}=\omega_{p}(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))+\omega_{p}\log\beta_{iv_d}-\lambda\omega_{p}(\log(\sum_{p'=1}^{P}\omega_{p'}\phi_{p'dni})+1)+\lambda_{\phi_p}
+\]
+Take second derivative in terms of $\phi_{pdni}$, then:\\
+\[
+\frac{\partial^2\mathcal{L}_d}{\partial \phi^2_{pdni}}=-\frac{\lambda\omega_p^2}{\sum_{p'=1}^{P}\omega_{p'}\phi_{p'dni}}
+\]
+And the second order partial derivative  in terms of $\phi_{pdni},\phi_{p''dni}$ where $\forall p\neq p''=1,2,\ldots,P$,\\
+\[
+\frac{\partial^2\mathcal{L}_d}{\partial \phi_{pdni}\partial \phi_{p''dni}}=-\frac{\lambda\omega_p\omega_{p''}}{\sum_{p'=1}^{P}\omega_{p'}\phi_{p'dni}}
+\]
+Apply the Newton-Raphson method, for each fixed $n=1,2,\ldots,N_d,d=1,2,\ldots,D$, denote $\bs{\phi}_{dni}=[\phi_{1dni},\phi_{2dni},\ldots,\phi_{Pdni}]^T$, then by iterating the equation below we can find the maximal-$\bs{\phi}_{dn}$:\\
+\[
+\bs{\phi}_{dni(new)}=\bs{\phi}_{dni(old)}-H(\bs{\phi}_{dn(old)})^{-1}g(\bs{\phi}_{dni(old)})
+\]
+where $H(\bs{\phi}_{dn}),g(\bs{\phi}_{dni})$ are the Hessian matrix and gradient respectively at the point-$\bs{\phi}_{dni}$ defined above.\\
+\\
+A point need to note that the maximal $\bs{\phi}_{dni}$ achieve above need to satisfy $\Sum_{i=1}^{k}\phi_{pdni}=1$ for each fixed-$n=1,2,\ldots,N_d,d=1,2,\ldots,D,p=1,2,\ldots,P$.\\
+\\
+In order to address the constraints-$\forall p=1,2,\ldots,P,n=1,2,\ldots,N_d,d=1,2,\ldots,D,i=1,2,\ldots,k, 0\le\phi_{pdni}\le 1$, and for each fixed-$p,n,d,\Sum_{i=1}^{k}\phi_{pdni}=1$, we transform $\phi_{pdni}$ to some variable-$x_{pdni}\in(-\infty,\infty)$ with $x_{pdni}=logit(\phi_{pdni}),\phi_{pndi}=\frac{e^{x_{pdni}}}{1+e^{x_{pdni}}},\forall p
+=1,2,\ldots,P,n=1,2,\ldots,N_d,d=1,2,\ldots,D,i=1,2,\ldots,k-1$ and based on the constraints-$\Sum_{i=1}^{k}\phi_{pdni}=1$, we have total $P(k-1)\sum_{d=1}^{D}N_d$ free parameters with $\phi_{pndk}=1-\Sum_{i'=1}^{k-1}\frac{e^{x_{pdni'}}}{1+e^{x_{pdni'}}}$.\\
+\\
+Apply the chain rule of differentiation, then the first derivative in terms of the new parameter-$x_{pdni'},\forall p=1,2,\ldots,P,d=1,2,\ldots,D,n=1,2,\ldots,N_d,i'=1,2,\ldots,k-1$,\\
+\be
+\ba{rcl}
+\frac{\partial\mathcal{L}_d}{\partial x_{pdni'}}=\frac{\partial\mathcal{L}_d}{\partial \phi_{pdni'}}\frac{\partial\phi_{pdni'}}{\partial x_{pdni'}}&=&\left(\omega_{p}(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))+\omega_{p}\log\beta_{iv_d}-\lambda\omega_{p}(\log(\sum_{p'=1}^{P}\omega_{p'}\frac{e^{x_{pdni'}}}{1+e^{x_{pdni'}}})+1)\right)\\
+&&\times\frac{e^{x_{pdni'}}}{(1+e^{x_{pdni'}})^2}
+\ea
+\ee
+Also the second derivative in terms of the parameter-$x_{pdni'},\forall p=1,2,\ldots,P,d=1,2,\ldots,D,n=1,2,\ldots,N_d,i'=1,2,\ldots,k-1$,\\
+\be
+\ba{rcl}
+\frac{\partial^2\mathcal{L}_d}{\partial x_{pdni'}^2}&=&\frac{\partial}{\partial x_{pdni'}}\left(\frac{\partial\mathcal{L}_d}{\partial x_{pdni'}}\right)=\frac{\partial}{\partial x_{pdni'}}\left(\frac{\partial\mathcal{L}_d}{\partial \phi_{pdni'}}\frac{\partial\phi_{pdni'}}{\partial x_{pdni'}}\right)\\
+&=&\frac{\partial\mathcal{L}_d}{\partial \phi_{pdni'}}\frac{\partial^2\phi_{pdni'}}{\partial x_{pdni'}^2}+\frac{\partial^2\mathcal{L}_d}{\partial \phi_{pdni'}\partial x_{pdni'}}\frac{\partial\phi_{pdni'}}{\partial x_{pdni'}}\\
+&=&\frac{\partial\mathcal{L}_d}{\partial \phi_{pdni'}}\frac{\partial^2\phi_{pdni'}}{\partial x_{pdni'}^2}+\frac{\partial^2\mathcal{L}_d}{\partial \phi_{pdni'}^2}(\frac{\partial\phi_{pdni'}}{\partial x_{pdni'}})^2\\
+&=&\frac{\partial\mathcal{L}_d}{\partial \phi_{pdni'}}\frac{\partial\phi_{pdni'}}{\partial x_{pdni'}}\\
+&=&\left(\omega_{p}(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))+\omega_{p}\log\beta_{iv_d}-\lambda\omega_{p}(\log(\sum_{p'=1}^{P}\omega_{p'}\frac{e^{x_{p'dni'}}}{1+e^{x_{p'dni'}}})+1)\right)\\
+&&\times\frac{e^{x_{pdni'}}}{(1+e^{x_{pdni'}})^2}(1-\frac{e^{x_{pdni'}}}{1+e^{x_{pdni'}}})-\frac{\lambda\omega_p^2}{\sum_{p'=1}^{P}\omega_{p'}\frac{e^{x_{pdni'}}}{1+e^{x_{pdni'}}}}*\frac{e^{2x_{pdni'}}}{(1+e^{x_{pdni'}})^4}\\
+\ea
+\ee
+Also the second order partial derivative in terms of the parameter-$x_{pdni'},x_{p''dni'},\forall p\neq p''=1,2,\ldots,P,d=1,2,\ldots,D,n=1,2,\ldots,N_d,i'=1,2,\ldots,k-1$,\\
+\be
+\ba{rcl}
+\frac{\partial^2\mathcal{L}_d}{\partial x_{pdni'}\partial x_{p''dni'}}&=&\frac{\partial}{\partial x_{p''dni'}}\left(\frac{\partial\mathcal{L}_d}{\partial x_{pdni'}}\right)=\frac{\partial}{\partial x_{p''dni'}}\left(\frac{\partial\mathcal{L}_d}{\partial \phi_{pdni'}}\frac{\partial\phi_{pdni'}}{\partial x_{pdni'}}\right)\\
+&=&\frac{\partial\mathcal{L}_d}{\partial \phi_{pdni'}}\frac{\partial^2\phi_{pdni'}}{\partial x_{pdni'}\partial x_{p''dni'}}+\frac{\partial^2\mathcal{L}_d}{\partial \phi_{pdni'}\partial x_{p''dni'}}\frac{\partial\phi_{pdni'}}{\partial x_{pdni'}}\\
+&=&\frac{\partial\mathcal{L}_d}{\partial \phi_{pdni'}}\times 0+\frac{\partial^2\mathcal{L}_d}{\partial \phi_{pdni'}\partial \phi_{p''dni'}}\frac{\partial\phi_{pdni'}}{\partial x_{pdni'}}\frac{\partial\phi_{p''dni'}}{\partial x_{p''dni'}}\\
+&=&\frac{\partial^2\mathcal{L}_d}{\partial \phi_{pdni'}\partial \phi_{p''dni'}}\frac{\partial\phi_{pdni'}}{\partial x_{pdni'}}\frac{\partial\phi_{p''dni'}}{\partial x_{p''dni'}}\\
+&=&-\frac{\lambda\omega_p\omega_{p''}}{\sum_{p'=1}^{P}\omega_{p'}\frac{e^{x_{p'dni'}}}{1+e^{x_{p'dni'}}}}\frac{e^{x_{pdni'}}}{(1+e^{x_{pdni'}})^2}\frac{e^{x_{p''dni'}}}{(1+e^{x_{p''dni'}})^2}\\
+\ea
+\ee
+Thus the Newton-Raphson method in terms of the vector of $P$ parameters-$\bs{x}_{dni'}=[x_{1dni'}, x_{2dni'}, \ldots, x_{Pdni'}]^T,\forall i'=1,2,\ldots,k-1,n=1,2,\ldots,N_d,d=1,2,\ldots,D$ without constraints, thus  by iterating the equation below we can find the maximal-$\bs{x}_{dni'}$:\\
+\[
+\bs{x}_{dni'(new)}=\bs{x}_{dni'(old)}-H(\bs{x}_{dni'(old)})^{-1}g(\bs{x}_{dni'(old)})
+\]
+where $H(\bs{x}_{dni'}),g(\bs{x}_{dni'})$ are the Hessian matrix and gradient respectively at the vector point-$\bs{x}_{dni'}$ defined above respectively.\\
+\\
+Apply the property of importance weights for any fixed $\Sum_{p'=1}^{P}\omega_{p'}=1$,
+and add the $P$ equations-$\sum_{p'=1}^{P}\frac{\partial\mathcal{L}_d}{\partial \phi_{p'dni}}$ and set it equal to zero, then:\\
+\[
+\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj})+\log\beta_{iv_d}-\lambda(\log(\sum_{p'=1}^{P}\omega_{p'
+}\phi_{p'dni})+1)+\sum_{p'=1}^{P}\lambda_{\phi_{p'}}=0
+\]
+\[
+\log(\sum_{p'=1}^{P}\omega_{p'dn}\phi_{p'dni})=(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))/\lambda+\log\beta_{iv_d}/\lambda+\sum_{p'=1}^{P}\lambda_{\phi_{p'}}/\lambda-1
+\]
+\\
+Secondly, we need to update the particle importance weights-$\bs{\omega}=[\omega_1,\omega_2,\ldots,\omega_P]^T$ given $\hat{\phi}_{pdni},\forall i=1,2,\ldots,k,n=1,2,\ldots,N_d,d=1,2,\ldots,D$,
+Then the ELBO-\ref{elbo7} can be written as:\\
+\be\label{elbo8}
+\ba{rcl}
+\mathcal{L}_{\lambda}(\bs{\gamma},\bs{\Gamma},\bs{\omega};\bs{\theta},\alpha,\beta)
+&=&D\log\Gamma(\sum_{j=1}^{k}\alpha_j)+\Sum_{d=1}^{D}\Sum_{i=1}^{k}(\alpha_i-1)(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))\\
+&&+\Sum_{d=1}^{D}\Sum_{n=1}^{N_d}\Sum_{i=1}^{k}\Sum_{l=1}^{P}\omega_{p}\phi_{pdni}(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))\\
+&&+\Sum_{d=1}^{D}\Sum_{n=1}^{N_d}\Sum_{i=1}^{k}\Sum_{j=1}^{V}\Sum_{p=1}^{P}\omega_{p}\phi_{pdni}w_n^j\log\beta_{ij}\\
+&&-\Sum_{d=1}^{D}\left(\Psi(\sum_{j=1}^{k}\gamma_{dj})+\Sum_{i=1}^{k}\log\Gamma(\gamma_{di})-\Sum_{i=1}^{k}(\gamma_{di}-1)(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))\right)\\
+&&-\lambda\Sum_{d=1}^{D}\Sum_{n=1}^{N_d}\Sum_{i=1}^{k}\Sum_{p=1}^{P}\omega_p\phi_{pdni}\log(\Sum_{p=1}^{P}\omega_p\phi_{pdni})
+\ea
+\ee
+Maximize the ELBO-\ref{elbo8} with respect to 
+$\omega_{p}$ with the constraint-$\sum_{p'=1}^{P}\omega_{p'}=1$.
+Denote $\beta_{iv_d}=p(w_n^{v_d}=1|z_{pd}^i=1)$ for the appropriate $v_d$.\\
+Then  add the Lagrange multiplier to the terms in ELBO-\ref{elbo8} containing $\omega_{p},\forall p=1,2,\ldots,P$,\\
+\be\label{omg1}
+\ba{rcl}
+\mathcal{L}_{[\omega_{p}]}&=&\Sum_{d=1}^{D}\Sum_{n=1}^{N_d}\Sum_{i=1}^{k}\omega_{p}\phi_{pdni}(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))\\
+&&+\Sum_{d=1}^{D}\Sum_{n=1}^{N_d}\Sum_{i=1}^{k}\omega_{p}\phi_{pdni}\log\beta_{iv_d}\\
+&&-\lambda\Sum_{d=1}^{D}\Sum_{n=1}^{N_d}\Sum_{i=1}^{k}\Sum_{p'=1}^{P}\omega_{p'}\phi_{p'dni}\log(\Sum_{p'=1}^{P}\omega_{p'}\phi_{p'dni})
++\lambda_{\omega_{p'}}(\sum_{p'=1}^{P}\omega_{p'}-1)
+\ea
+\ee
+Thus for any $p=1,2,\ldots,P$  given $\hat{\phi}_{pndi},\forall p=1,2,\ldots,P,i=1,2,\ldots,k,n=1,2,\ldots,N_d,d=1,2,\ldots,D$\\
+\[
+\hat{\omega}_p=\underset{\omega_p}{\operatorname{argmax}}\mathcal{L}_{[\omega_{p}]}
+\]
+where $0\le \hat{\omega}_p\le 1,\Sum_{p'=1}^{P}\omega_{p'}=1,\forall p=1,2,\ldots,P$.
+Based on the expression of $\mathcal{L}_{[\omega_{p}]}$ above,\\
+\be\label{omg3}
+\ba{rcl}
+\hat{\omega}_p&\propto&\Sum_{d=1}^{D}\Sum_{n=1}^{N_d}\Sum_{i=1}^{k}\left(\phi_{pdni}(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))+\phi_{pdni}\log\beta_{iv_d}\right)\\
+&=&\frac{\sum_{d=1}^{D}\sum_{n=1}^{N_d}\sum_{i=1}^{k}\left(\phi_{pdni}(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))+\phi_{pdni}\log\beta_{iv_d}\right)}{\sum_{p'=1}^{P}\sum_{d=1}^{D}\sum_{n=1}^{N_d}\sum_{i=1}^{k}\left(\phi_{p'dni}(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))+\phi_{p'dni}\log\beta_{iv_d}\right)}
+\ea
+\ee
+\\
+Last, we maximize the equation-\ref{elbo7} with respect to $\gamma_{di}$, the terms containing $\gamma_{di}$ are:\\
+\be\label{elbo9}
+\ba{rcl}
+\mathcal{L}_{d[\gamma_{di}]}&=&(\alpha_i-1)\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj})\Sum_{j=1}^{k}(\alpha_j-1)+\sum_{n=1}^{N_d}\sum_{p=1}^{P}\omega_{p}\phi_{pdni}(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))\\
+&&-\Psi(\sum_{j=1}^{k}\gamma_j)+\Sum_{i=1}^{k}\log\Gamma(\gamma_{di})-(\gamma_{di}-1)\Psi(\gamma_{di})+\Psi(\sum_{j=1}^{k}\gamma_{dj})\Sum_{j=1}^{k}(\gamma_{dj}-1)
+\ea
+\ee
+Take first derivative in terms of $\gamma_{di}$:
+\[
+\frac{\partial \mathcal{L}_{d[\gamma_{di}]}}{\partial \gamma_{di} }=(\alpha_i+\sum_{n=1}^{N_d}\sum_{p=1}^{P}\omega_{p}\phi_{pdni}-\gamma_{di})\Psi'(\gamma_{di})-\Psi'(\sum_{i=1}^{k}\gamma_{di})\Sum_{j=1}^{k}(\alpha_j+\sum_{n=1}^{N_d}\sum_{p=1}^{P}\omega_{p}\phi_{pdni}-\gamma_{dj})
+\]
+Set the above first derivative equal to 0 then the value of estimated $\hat{\gamma}_{di}$ maximizing the ELBO-\ref{elbo8} is:\\
+\[
+\hat{\gamma}_{di}=\alpha_i+\sum_{n=1}^{N_d}\sum_{p=1}^{P}\omega_{p}\phi_{pdni}
+\]
+\subsubsection{Variational parameter estimation at M step of Particle EM with multiple particles}
+n M step with multiple particles-$P>1$, with all the documents-$\bs{w}_d,d=1,\ldots,D$, maximize the  ELBO-\ref{elbo8} with respect to model parameters-$\bs{\alpha,}\bs{\beta}$.\\
+\\
+Similarly to Blei et al. 2003, choose the terms related to $\beta$ and add Lagrange multiplier,\\
+\[
+\mathcal{L}_{[\beta]}=\Sum_{d=1}^{D}\Sum_{n=1}^{N_d}\Sum_{i=1}^{k}\Sum_{j=1}^{V}\Sum_{p=1}^{P}\omega{p}\phi_{pdni}w_{dn}^j\log\beta_{ij}+\Sum_{i=1}^{k}\lambda_{\beta i}(\Sum_{j=1}^{V}\beta_{ij}-1)
+\]
+Take the first derivative in terms of $\beta_{ij}$, set it to zero, then:\\
+\[
+\hat{\beta}_{ij}=\frac{\sum_{d=1}^{D}\sum_{n=1}^{N_d}\sum_{p=1}^{P}\omega_{p}\phi_{pdni}w_{dn}^j}{\sum_{d=1}^{D}\sum_{n=1}^{N_d}\sum_{j'=1}^{V}\sum_{p=1}^{P}\omega_{p}\phi_{pdni}w_{dn}^{j'}}
+\]
+And also choose the terms containing $\alpha$:\\
+\[
+\mathcal{L}_{[\alpha]}=\Sum_{d=1}^{D}\left(\log\Gamma(\sum_{j=1}^{k}\alpha_j)+\Sum_{i=1}^{k}(\alpha_i-1)(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))\right)
+\]
+Take the first derivative in terms of $\alpha_{i},\forall i=1,2,\ldots,k$,  then:\\
+\[
+\frac{\partial \mathcal{L}}{\partial \alpha_{i} }=D(\Psi(\sum_{j=1}^{k}\alpha_j)-\Psi(\alpha_i))+\Sum_{d=1}^{D}(\Psi(\gamma_{di})-\Psi(\sum_{j=1}^{k}\gamma_{dj}))
+\]
+Set it to zero, then $\forall i\neq j=1,2,\ldots,p$,:\\
+\[
+\frac{\partial \mathcal{L}}{\partial \alpha_{i}\alpha_{j} }=\delta(i,j)D\Psi'(\alpha_i)-\Psi'(\sum_{j=1}^{k}\alpha_j)
+\]
+Similar as estimation of model parameter-$\bs{\alpha}$ at M step with single particle, apply the Newton-Raphson method for a Hessian with special structure with exact same expression.
+\section{Future work}
+\subsection{Comparison with other variational inference methods in twitter-LDA data}
+We are now developing R and C++ code for particle EM algorithm in LDA model, and analyze some real dataset with our algorithm.\\
+\\
+The dataset we are going to use is the Twitter-LDA data, which is available at minghui’s Github, https://github.com/minghui/Twitter-LDA. The Twitter-LDA datasets (W. X. Zhao et al. 2011) contain 12 files, each file is all tweets of a single user, roughly each file contains 400-700 lines of records. The Twitter-LDA data are short and noisy, compared with common corpora. They also provided the result of their own Twitter-LDA(T-LDA) results, which they claimed work well with twitter data. So we can compare our particle EM algorithm with their T-LDA results and also with variational inference method in Blei 2003 et. al, nonparametric variational inference (Gershman et.al. 2012), stochastic variational inference method (Hoffman et. al. 2013) in LDA model.
+\subsubsection{Stochastic Variational Inference in LDA}
+Stochastic variational inference optimizes object function $f(\lambda)$ by introducing noisy natural gradients. Specifically in LDA, the $\rho$ size of steps can be regarded as a proportional weight between the updated estimate of $\lambda$ at step $t+1$ and the previous estimate of $\lambda$ at step $t$, denoted by $\hat{\lambda}_{t}=(1-\rho_t)\hat{\lambda}_{t-1}+\rho_t\hat{\lambda}$. In the stochastic variational inference frame work, the parameter $\beta$ is the global parameter and governed by a variational parameter $\lambda$, which is also a global parameter for each topic in vocabulary; the document $d$, word $w_{d,1:N}$, topic parameter $\theta-d$ and topic assignment $z_{d,1:N}$ are all local. As the result of the parameters' setting, one of the differences between the classical variational inference in LDA and stochastic variational inference in LDA is the additional $V$ -dimensional variational distribution for each topic in vocabulary, which can be given by:\\ 
+\[
+q(\beta_k)=Dir(\lambda_k)
+\]
+By the good properties of Dirichlet distribution, we can have following complete conditionals:\\
+\begin{eqnarray*}
+	p(z_{dn}&=&k|\theta_d,\beta_{1:K},w_{dn})\propto \exp \{\log \theta_{dk}+\log\beta_{k,w_{dn}}\}\\
+	p(\theta_d|z_d) &=& Dir(\alpha+\sum_{m=1}^Nz_{dn})\\
+	p(\beta_k|z,w)&=& Dir(\eta+\sum_{d=1}^D \sum_{n_d=1}^N z_{dn_d}^k w_{dn_d}).
+\end{eqnarray*}
+We can easily get following updates equations:\\
+\begin{eqnarray*}
+	\phi_{dn}^k &\propto& exp\{ \Psi(\gamma_{dk}+\Psi(\lambda_{k,w_{dn}})-\Psi(\sum_v\lambda_{kv}))\}\\
+	\gamma_d &=&\alpha+\sum_n=1^N \phi_{dn}\\
+	\lambda_k &=& \eta+ \sum_{n_d=1}^N \phi_{dn}^k w_{dn_d}
+\end{eqnarray*}
+To give a better understanding of how the stochastic variational inference works in LDA, Hoffman (2013) provided pesudo-codes:\\
+\begin{tabular}{|p{12cm}|}
+	\hline
+	\begin{enumerate}
+		\item Initialize $\lambda^{(0)}$ randomly.
+		\item Set the step-size schedule $\rho_t$ appropriately
+		\item \textbf{repeat}
+		\item \hspace{1ex} Sample a document $w_d$ uniformly from the data set.
+		\item \hspace{1ex} Initialize $\gamma_{dk}=1$, for $k\in\{1, \dots,K\}$.
+		\item \hspace{1ex} \textbf{repeat}
+		\item \hspace{3ex} For $n \in \{1,\dots, N\}$ set $$\phi_{dn}^k \propto \exp\{\mathbb{E}[\log\theta_{dk}] + \mathbb[\log \beta_{k,w_{dn}}]\}, k\in \{1,\dots,K\}.$$
+		\item \hspace{3ex} Set $\gamma_d=\alpha+\sum_{n}\phi_{dn}$.
+		\item \hspace{3ex} \textbf{until} local parameters $\phi_{dn}$ and $\gamma_d$ converge.
+		\item \hspace{3ex} $k\in\{1,\dots,K\}$ set intermediate topics $$\hat{\lambda}_k=\eta+D\sum_{n=1}^N \phi_{dn_d}^k w_{dn_d}.$$
+		\item \hspace{3ex} $\lambda^{(t)}=(1-\rho_t)\lambda^{(t-1)}+\rho_t \hat{\lambda}$
+		\item \hspace{3ex} \textbf{until} forever
+	\end{enumerate}\\
+	\hline
+\end{tabular}
+\\
+It is worth to mention that, because there is only one document $w_d$ being sampled in each repeat, stochastic variational inference will be much more efficient in computation as compared with other variational inference methods. 
+\subsubsection{Nonparametric Variational Inference in LDA}
+In 2012, Samuel J. Gershman introduced nonparametric variational inference for the model with continuous-valued hidden random variables and non-conjugacy between pairs of variables. Benefited from the less requirement for the conjugacy requirement and advantages from kernel approximation, the nonparametric variational inference can handle models with multimodal posterior and non-conjugate distribution. Inspired by such good properties of continuous version nonparametric variational inference, we were trying to explore its implementation in discrete case---LDA.\\
+We proposed to take the $logit$ transformation of variational parameter $\phi$,
+$$\eta_{nd}=logit(\phi_{nd}),$$
+such that a discrete $[0,1]$ variable can be transformed to a continuous $[-\infty,\infty]$ variable and apply similar approximation in continuous nonparametric variational inference. 
+and use second Gaussian kernel to approximate the variational distribution of hidden variable $z_{nd}$,
+\begin{eqnarray*}
+	q(z_{nd}|\phi_{nd})&=&\prod_{i=1}^k[K(\eta_{ndi})]^{z_{nd}^i}\\
+	q(z_{nd}|\phi_{nd})&=&\prod_{i=1}^k[\frac{1}{
+		\sqrt{2\pi}}\exp(-\frac{\eta_{ndi}^2}{2})]^{z_{nd}^i},
+\end{eqnarray*}
+where $z_{nd}^i$ is indicator variable for $i$th topic in document $nd$.\\
+The evidence lower bound (ELBO) can be written as:
+\begin{eqnarray*}
+	L(\bm{\gamma},\bm{\eta};\bm{\theta},\bm{\alpha},\bm{\beta}) &=& log \Gamma(\sum_{j=1}^{k}\alpha_j)-\sum_{i=1}^k\log \Gamma(\alpha_i)+\sum_{i=1}^k(\alpha_i-1)(\Psi(\gamma_i)-\Psi(\sum_{j=1}^k\gamma_j))\\
+	& & +\sum_{nd=1}^{Nd}\sum_{i=1}^{k}\frac{\exp(\eta_{ndi})}{1+\exp(\eta_{ndi})}(\Psi(\gamma_i)-\Psi(\sum_{j=1}^k\gamma_j))\\
+	& & + \sum_{nd=1}^{Nd}\sum_{i=1}^{k}\sum_{j=1}^{V_d}\frac{\exp(\eta_{ndi})}{1+\exp(\eta_{ndi})}w_n^j\log\beta_{ij}\\
+	&& - \log \Gamma(\sum_{j=1}^k\gamma_j)+\sum_{i=1}^k\log \Gamma(\gamma_i)-\sum_{i=1}^k(\gamma_i-1)(\Psi(\gamma_i)-\Psi(\sum_{j=1}^k\gamma_j))\\
+	&& -\sum_{nd=1}^{Nd}\sum_{i=1}^{k}-\frac{1}{2\sqrt{2\pi}}\exp(-\frac{\eta_{{nd}^i}^2}{2})(\log(2\pi)+\eta_{nd^i}^2).
+\end{eqnarray*}
+Further derivation of the update equations are recommended in future work. 
+\subsection{Selection of optimal $\lambda$ in ELBO of Particle EM in LDA model}
+The penalized parameter-$\lambda$ is added in entropy term of Evidence Lower Bound (ELBO)-\ref{elbo3} to create repulsive power among the multiple particles, and the strength of this repulsive power will be determined by the value of $\lambda>1$.\\
+\\
+An intuitive way to select optimal value of the penalized parameter-$\lambda$ is through cross-validation. With $K$ folder cross validation we divide training and test datasets to examine a grid of possible values of $\lambda>1$ with lowest prediction test errors in terms of posterior marginal probabilities of topics.
+\subsection{Stochastic Gradient Particle EM algorithm in LDA model}
+When dealing with massive documents,  estimation of model parameters in particle EM algorithm combining all the documents will be computational inhibitive, and thus stochastic gradient descent method will replace the coordinate descent method for parameter estimation of particle EM algorithm.
+The detailed procedure will be very similar to section-3.2-\texttt{Stochastic Variational Inference} in Hoffman et. al. 2013 in LDA model.
+\subsection{Nonparametric Bayesian Topic model with hierarchical Dirichlet process (HDP)}
+For very large collection of documents pre-fixed number of topics is not practical. Thus random  even infinite number of topics can be addressed by a Bayesian nonparametric topic model, where the document data itself decides the number of topics in topic model.\\
+\\
+Thus Particle EM algorithm incorporating stochastic gradient descent method will be derived and implemented under the framework of Bayesian nonparametric variant of LDA where the number of topics is not fixed.  
+\section{Reference}
+Particle EM for Variable Selection 
+Rockova V. (2016) 
+Journal of the American Statistical Association, Theory and Methods (Invited revision) \\
+\\
+Latent Dirichlet allocation.
+D. Blei, A. Ng, and M. Jordan. 
+Journal of Machine Learning Research, 3:993–1022, January 2003.\\
+\\
+Nonparametric variational inference.
+S. Gershman, M. Hoffman, and D. Blei. 
+In International Conference on Machine Learning, 2012.\\
+ \\
+Stochastic variational Inference
+M. Hoffman, D. Blei, C. Wang, and J. Paisley
+Journal of Machine Learning Research, vol. 14, pp.1303–1347, 2013. \\
+\\
+Comparing twitter and traditional media using topic models.
+W. X. Zhao, J. Jiang, J. Weng, J. He, E.-P. Lim, H. Yan, and X. Li. 
+In Proceedings of the 33rd European Conference on Advances in Information Retrieval, pages 338–349, 2011
+\end{document}
